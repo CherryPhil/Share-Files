@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+		<link href="../static/css/skeleton.css" rel="stylesheet">
+		<link href="../static/css/community.css" rel="stylesheet">
+		<link href="../static/css/forums.css" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+	</head>
+	<body>
+
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+			<div class="navbar-header" id="topLeft">
+				<a href="/">
+					<img id="logo" src="/static/images/Logo Reverse.png">
+				</a>
+				<button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+
+			<div class="collapse navbar-collapse navbar-right" id="topRight">
+				<ul class="nav navbar-nav" id="navList">
+					<li><a href="/">Home</a></li>
+					<li><a href="/recipe">Recipe</a></li>
+					<li><a href="/health">My Health</a></li>
+					<li><a href="/fun">Fun</a></li>
+					<li class="active1"><a href="/community">Community</a></li>
+				</ul>
+				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+			</div>
+		</nav>
+
+		<div><!--BODY-->
+			<div class="container title">
+				<h1>&nbsp </h1>
+				<h3>&nbsp </h3>
+				<p style="font-size:20px;color: white;"><a href="/community">Forums</a> > Recipes </p>
+				<h1>&nbsp </h1>
+                <a href="/community/recipes/post_recipe">
+                    <p class="btn btn-default" style="float: right;"> Post </p>
+                </a>
+				<h1>&nbsp </h1>
+                {% for i in title %}
+                    <a href="{{ url_for('append', title_url=i) }}">
+                        <div class="col-md-12 post">
+					        <p style="font-size: 24px"> {{ i }}  </p>
+				        </div>
+                    </a>
+                {% endfor %}
+				<h1> {{ generals }} </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+			</div>
+		</div>
+
+		<div class="container-fluid" id="bottomTop"><!--BOTTOM-->
+			<div class="container">
+				<div class="col-md-3">
+					<ul id="contactList">
+						<li><strong>CONTACT US</strong></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;39 Artillery Avenue, Sentosa<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Singapore 099958</li>
+						<br/>
+						<li><span class="glyphicon glyphicon-earphone"></span>&nbsp;&nbsp;+65 6823 9999</li>
+						</br>
+						<li><span class="glyphicon glyphicon-phone-alt"></span>&nbsp;&nbsp;+65 6448 9999</li>
+						<br/>
+						<li><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;<a id="bottomEmail" href="mailto:contactus@iDiet.com.sg">contactus@iDiet.com.sg</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul id="siteList">
+						<li><strong>SITEMAP</strong></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="recipe.html">Recipe</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="health.html">My Health</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="fun.html">Fun</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="announcements.html">Announcements</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="forums.html">Forums</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="support.html">Support</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul id="policiesList">
+						<li><strong>POLICIES</strong></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="terms&conditions.html">Terms & Conditions</a></li>
+						<br/>
+						<li><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;<a href="privacy.html">Privacy</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					<ul id="sponsorsList">
+						<li><strong>SPONSORS</strong></li>
+						<br/>
+						<li><img id="sponsors" src="../static/images/sponsors.png"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" id="bottomBot">
+			<div class="container">
+				<div class="col-md-6">
+					<ul id="socialList">
+						<li><strong>Follow Us On</strong></li>
+						<li><a target="_blank" href="https://www.facebook.com/">Facebook</a></li>
+						<li><a target="_blank" href="https://www.instagram.com/?hl=en">Instragram</a></li>
+						<li><a target="_blank" href="https://twitter.com/?lang=en">Twitter</a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 col-md-offset-2">
+					<p id="copyright">Copyright © 2017 iDiet.com.sg. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

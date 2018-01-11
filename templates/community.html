@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+		<link href="/static/css/skeleton.css" rel="stylesheet">
+		<link href="/static/css/community.css" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+	</head>
+	<body>
+	
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+			<div class="navbar-header" id="topLeft">
+				<a href="/">
+					<img id="logo" src="/static/images/Logo Reverse.png">
+				</a>
+				<button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+
+			<div class="collapse navbar-collapse navbar-right" id="topRight">
+				<ul class="nav navbar-nav" id="navList">
+					<li><a href="/">Home</a></li>
+					<li><a href="/recipe">Recipe</a></li>
+					<li><a href="/health">My Health</a></li>
+					<li><a href="/fun">Fun</a></li>
+					<li class="active1"><a href="/community">Community</a></li>
+				</ul>
+				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+			</div>
+		</nav>
+	
+	
+		<div><!--BODY-->
+			<div class="container">
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h3>&nbsp </h3>
+				<h1 style="color: #ffffff; font-size: 64px">Forums</h1>
+				<h1>&nbsp </h1>
+				<h1 style="color: #ffffff; font-size: 48px">Community</h1>
+				<a href="/community/announcements">
+					<div class="col-md-8 tabs">
+						<p style="opacity:1; font-size: 24px;"> Announcements </p>
+					</div>
+				</a>
+				<p>&nbsp </p>
+				<p>&nbsp </p>
+                <a href="/community/general">
+				<div class="col-md-8 tabs">
+					<p style="opacity:1; font-size: 24px"> General Discussion </p>
+				</div>
+                </a>
+				<p>&nbsp </p>
+				<p>&nbsp </p>
+                <a href="/community/recipes">
+				<div class="col-md-8 tabs">
+					<p style="opacity:1; font-size: 24px"> Recipes </p>
+				</div>
+                </a>
+				<p>&nbsp </p>
+				<p>&nbsp </p>
+				<h1 style="color: #ffffff; font-size: 48px">Support</h1>
+                <a href="/community/contactus">
+				<div class="col-md-8 tabs">
+					<p style="opacity:1; font-size: 24px"> Contact Us </p>
+				</div>
+                </a>
+				<p>&nbsp </p>
+				<p>&nbsp </p>
+                <a href="/community/faq">
+				<div class="col-md-8 tabs">
+					<p style="opacity:1; font-size: 24px"> FAQ </p>
+				</div>
+                </a>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+			</div>
+		</div>
+		
+		<!--BOTTOM-->
+        {% include 'includes/_footer.html' %}
+
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/article.css') }}">
+	</head>
+	<body>
+
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+            <div class="navbar-header" id="topLeft">
+                <a href="/">
+                    <img id="logo" src="{{ url_for("static", filename="images/Logo Reverse.png") }}">
+                </a>
+                <button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+
+            <div class="collapse navbar-collapse navbar-right" id="topRight">
+                <ul class="nav navbar-nav" id="navList">
+                    <li class="active1"><a href="/">Home</a></li>
+                    <li><a href="/recipe">Recipe</a></li>
+                    <li><a href="/health">My Health</a></li>
+                    <li><a href="/fun">Fun</a></li>
+                    <li><a href="/community">Community</a></li>
+                </ul>
+                <a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+            </div>
+        </nav>
+
+        <br>
+        <br>
+        <br>
+        <br>
+	    <div style="color: white; text-align: center; ">
+            <h1>Healthier-choice food products getting popular</h1>
+            <img id="healthBug"  src="/static/images/healthychoice.jpg">
+        </div>
+        <div id="healthLizard">
+            <hr>
+            <h3>More Singaporeans are buying healthier food such as brown rice and wholemeal bread</h3>
+            <hr>
+            <p>More people are buying healthier food, as consumer buying trends show.</p>
+            <p>Sales of food products with the Healthier Choice symbol are growing at 9 per cent annually, said Ms Joanna Chan, Health Promotion Board's director of the Obesity Prevention Management division.</p>
+            <p>The number of such products has also grown steadily from an initial 300 in 2001 to 2,500 across 70 food categories today. These include staple food items such as rice, bread and noodles, and others including sauces and beverages.</p>
+            <p>Another indicator that more Singaporeans are taking steps to select healthier options when grocery shopping is the increased sales of healthier-choice wholegrain rice. It has grown from about 2 per cent in 2008 to about 5 per cent last year.</p>
+            <p>ales of healthier-choice wholemeal bread have also shown an average growth of 14 per cent per year between 2011 and last year.</p>
+            <p>The HPB partnered 235 supermarkets last year to introduce the "Shop healthy, get more from life" campaign to support in-store promotions of healthier-choice products with lucky draws, food sampling and cooking demonstrations.</p>
+            <p>At each step of their shopping experience, shoppers were nudged at various decision points by strategic placements of visual cues to make informed, healthier choices.</p>
+            <p>The HPB will continue to work with retailers and food manufacturers to increase the pervasiveness of healthier options for consumers and continue growing the market share of healthier- choice products from the current 17 per cent to 25 per cent by 2020, said Ms Chan.</p>
+            <p>Much of this effort is to combat diabetes, a growing health problem here, with Singapore found to have the second highest diabetes prevalence among developed nations, where one out of nine residents is affected by diabetes and one in three has a chance of getting diabetes in his lifetime.</p>
+            <p>Poor diet quality is one of the major risk factors of the disease.</p>
+            <p>"A key focus in the fight against diabetes is to grow awareness among people here on the need to improve diet quality by replacing refined carbohydrate intake with wholegrain versions," said Ms Chan.</p>
+            <p>To increase their diet quality and reduce the risk of diabetes, consumers can make small changes to their lifestyles by replacing refined starchy staples with healthier wholegrain varieties, such as brown rice and wholemeal bread.</p>
+            <p>There are readily available mixed unpolished rice in the market, ranging from 20 per cent mixed wholegrain to 100 per cent mixed wholegrain.</p>
+            <p>These healthier varieties can be identified by the Healthier Choice symbol on the packaging.</p>
+            <p>One of the supermarkets here selling healthier-choice food products is FairPrice.</p>
+            <p>It carries close to 1,000 such products which are generally lower in total fat, saturated fat, sodium and sugar, while some are higher in dietary fibre, calcium and whole grains, compared with similar products within the same category.</p>
+            <p>Over the past year, FairPrice has seen sales for healthier-choice products grow by 5 per cent.</p>
+            <p>Mr Zee Yoong Kang, HPB's chief executive officer, said it is a very encouraging sign that more people are selecting healthier options when grocery shopping. He added: "We encourage more food and beverage retailers to join in this effort so that together, we can increase the pervasiveness of healthier options for Singaporeans."</p>
+        </div>
+
+		{% include 'includes/_footer.html' %}
+	</body>
+</html>

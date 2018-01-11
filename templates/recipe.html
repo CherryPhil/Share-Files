@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="js/ingredient_list.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipe_decor.css') }}">
+    <link rel="icon" href="/static/images/Board.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+	<link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+    <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+
+    <script type="text/javascript">//<![CDATA[
+	window.onload=function(){
+
+			var list = document.getElementById('list');
+			var add = document.getElementById('add');
+
+			//adding a new element to the list
+			add.addEventListener('click', function(){
+			  var text = document.getElementById("ingredient").value;
+			  var newElement = document.createElement('LI');
+			  list.appendChild(newElement);
+			  newElement.innerHTML= text + "&nbsp" + "<button class='btn listing'>X</button>";
+
+			});
+
+			list.addEventListener('click', function(e){
+			  if(e.target && e.target.nodeName == "BUTTON") {
+					// List item found!  Output the ID!
+					console.log("Button ", e, " was clicked!");
+				e.target.parentNode.remove();
+				}
+			});
+
+	}
+	</script>
+	<script type="text/javascript">
+		function myFunction() {
+		  var input, filter, table, tr, td, i;
+		  input = document.getElementById("myInput");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 0; i < tr.length; i++) {
+			td = tr[i].getElementsByTagName("td")[1];
+			if (td) {
+			  if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			  } else {
+				tr[i].style.display = "none";
+			  }
+			}
+		  }
+		}
+	</script>
+	<script type="text/javascript">
+		filterSelection("all")
+		function filterSelection(c) {
+		  var x, i;
+		  x = document.getElementsByClassName("filterDiv");
+		  if (c == "all") c = "";
+		  for (i = 0; i < x.length; i++) {
+			w3RemoveClass(x[i], "show");
+			if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+		  }
+		}
+
+		function w3AddClass(element, name) {
+		  var i, arr1, arr2;
+		  arr1 = element.className.split(" ");
+		  arr2 = name.split(" ");
+		  for (i = 0; i < arr2.length; i++) {
+			if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+		  }
+		}
+
+		function w3RemoveClass(element, name) {
+		  var i, arr1, arr2;
+		  arr1 = element.className.split(" ");
+		  arr2 = name.split(" ");
+		  for (i = 0; i < arr2.length; i++) {
+			while (arr1.indexOf(arr2[i]) > -1) {
+			  arr1.splice(arr1.indexOf(arr2[i]), 1);
+			}
+		  }
+		  element.className = arr1.join(" ");
+		}
+
+		// Add active class to the current button (highlight it)
+		var btnContainer = document.getElementById("myBtnContainer");
+		var btns = btnContainer.getElementsByClassName("btn");
+		for (var i = 0; i < btns.length; i++) {
+		  btns[i].addEventListener("click", function(){
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			this.className += " active";
+		  });
+		}
+	</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+			<div class="navbar-header" id="topLeft">
+				<a href="/">
+					<img id="logo" src="static/images/Logo Reverse.png">
+				</a>
+				<button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+
+			<div class="collapse navbar-collapse navbar-right" id="topRight">
+				<ul class="nav navbar-nav" id="navList">
+					<li><a href="/">Home</a></li>
+					<li class="active1"><a href="/recipe">Recipe</a></li>
+					<li><a href="/health">My Health</a></li>
+					<li><a href="/fun">Fun</a></li>
+					<li><a href="/community">Community</a></li>
+				</ul>
+				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+			</div>
+		</nav>
+
+
+		<div class="container-fluid content" style="padding: 100px;"><!--BODY-->
+		<div class="hi2">
+				<p class='speech'>Home Ingredient</p>
+			<ul class='hi'>
+				<li style="text-align:center;">Ingredient: <input type="text" style="text-align:center;" id="ingredient"/><input type="button" id="add" value="Add"></li>
+				<li>
+					<div class="choice" id="myBtnContainer">
+					Healthy Food:
+					<label><button class="btn active" id="filter" onclick="filterSelection('all')"> All</button></label>
+					<label><button class="btn" id="filter" onclick="filterSelection('Yes')"> Yes</button></label>
+					<label><button class="btn" id="filter" onclick="filterSelection('No')"> No</button></label>
+					</div>
+				</li>
+				<li>
+					<div class="choice">
+						Time to prepare:
+						<label><button class="btn active" id="filter" onclick="filterSelection('all')"> All</button></label>
+					    <label><button class="btn" id="filter" onclick="filterSelection('Yes')"> Fast</button></label>
+						<label><button class="btn" id="filter" onclick="filterSelection('No')"> Normal</button></label>
+					</div>
+				</li>
+				<div class="hi3">
+					<li><ul id='list'></ul></li>
+				</div>
+			</ul>
+		</div>
+
+		<div style="margin-left:40%;padding:1px 16px;height:600px;">
+			<form><input class="search" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for food"></form>
+			<h2 style="color: white; font-weight: bold;">Welcome to Recipe</h2>
+			<div class="recipe_box">
+				<div class="recipe_box1">
+					<div class="container">
+						<table id="myTable">
+							<thead>
+							  <tr class="header">
+								<th style="width:10%;">Photo</th>
+								<th style="width:30%;">Food</th>
+								<th style="width:20%;"><img id="Cook" src="static/images/Cook.png">Prep.</th>
+								<th style="width:20%;"><img id="Cook1" src="static/images/Cook1.png">Cook</th>
+								<th style="width:20%;">Calories(/100g)</th>
+							  </tr>
+							</thead>
+							<tbody id="myTable1">
+							{% for i in name %}
+								  <tr onclick="location.href='{{i['steps']}}';">
+									  <td><img id="photo" src="static/images/food/{{i['photo']}}"></td>
+									  <td>{{i['name']}}</td>
+									  <td>{{i['prep']}}</td>
+									  <td>{{i['cook']}}</td>
+									  <td style="text-align: center">{{i['cal']}}</td>
+								  </tr>
+							{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% include 'includes/_footer.html' %}
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/health.css') }}">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+        <script type="text/javascript" src="static/js/graph.js"></script>
+
+	</head>
+	<body>
+	
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+			<div class="navbar-header" id="topLeft">
+				<a href="/">
+					<img id="logo" src="static/images/Logo Reverse.png">
+				</a>
+				<button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+			</div>
+			
+			
+			<div class="collapse navbar-collapse navbar-right" id="topRight">
+				<ul class="nav navbar-nav" id="navList">
+					<li><a href="/">Home</a></li>
+					<li><a href="/recipe">Recipe</a></li>
+					<li class="active1"><a href="/health">My Health</a></li>
+					<li><a href="/fun">Fun</a></li>
+					<li><a href="/community">Community</a></li>
+				</ul>
+				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+			</div>
+		</nav>
+	
+	
+		<div class="parent-div"><!--BODY-->
+			<img src ="static/images/running1.jfif" style="width:100%;">
+			&nbsp;
+			<div class="bmi">
+
+				<script type="text/javascript" src="static/js/bmi.js"></script>
+
+				<h1> BMI Calculator </h1>
+				<p>Enter your height (cm): <input type="text" id="height" multiple/></p>
+				<p>Enter your weight( kg): <input type="text" id="weight" multiple/></p>
+				<input type="submit" value="Calculate" onclick="computeBMI();">
+				<h1>Body Mass Index: <span id="output">?</span></h1>
+				<h2><span id="comment"></span></h2>
+
+			</div>
+            <br><br>
+
+            <div id="chartContainer" style="width:100%; height:280px"></div>
+            <div style = "text-align:center;">
+                Enter Updated BMI: <input id="newdp" type="number">
+                <button id="addDataPoint">Update</button>
+            </div>
+            <br><br>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+            <div class="container" style="width: 100%; overflow: hidden;">
+                <div class="child_div_1" style="width: 500px; float: left;">
+                    <h1>Recommended Diets</h1>
+                    <table id="myTable">
+                        <thead>
+                        <tr class="header">
+                            <th style="width:10%;">Photo</th>
+                            <th style="width:30%;">Food</th>
+                            <th style="width:20%;"><img id="Cook" src="static/images/Cook.png">Prep.</th>
+                            <th style="width:20%;"><img id="Cook1" src="static/images/Cook1.png">Cook</th>
+                            <th style="width:20%;">Calories(/100g)</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable1">
+                        {% for i in name %}
+                            <tr onclick="location.href='{{i['steps']}}';">
+                                <td><img id="photo" src="static/images/food/{{i['photo']}}"></td>
+                                <td>{{i['name']}}</td>
+                                <td>{{i['prep']}}</td>
+                                <td>{{i['cook']}}</td>
+                                <td style="text-align: center">{{i['cal']}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="child_div_2" style="margin-left: 810px;">
+                    <h1>Recommended Workouts</h1>
+                    <table id="myTable">
+                        <thead>
+                        <tr class="header">
+                            <th style="width:10%;">Photo</th>
+                            <th style="width:30%;">Workout</th>
+                            <th style="width:30%;">Calories</th>
+                            <th style="width:30%;">Duration</th>
+                        </tr>
+                        </thead>
+                        <tbody id="myTable1">
+                        {% for i in name1 %}
+                            <tr onclick="location.href='{{i['steps']}}';">
+                                <td><img id="photo" src="{{i['photo']}}"></td>
+                                <td>{{i['name']}}</td>
+                                <td>{{i['kcal-burn']}}</td>
+                                <td>{{i['duration']}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <br><br>
+		</div>
+		
+		{% include 'includes/_footer.html' %}
+
+	</body>
+</html>

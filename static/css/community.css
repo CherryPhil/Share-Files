@@ -1,0 +1,14 @@
+body{
+	background: url(../images/background5.jpg) no-repeat center center fixed
+}
+
+.tabs{
+	background:rgba(255,255,255,0.6);
+	border-radius: 5%;
+	text-decoration: none;
+}
+
+.tabs:hover{
+	background:rgba(255,255,255,0.8);
+	cursor: pointer;
+}

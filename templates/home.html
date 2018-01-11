@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+	</head>
+	<body>
+
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+            <div class="navbar-header" id="topLeft">
+                <a href="/">
+                    <img id="logo" src="{{ url_for("static", filename="images/Logo Reverse.png") }}">
+                </a>
+                <button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+
+            <div class="collapse navbar-collapse navbar-right" id="topRight">
+                <ul class="nav navbar-nav" id="navList">
+                    <li class="active1"><a href="/">Home</a></li>
+                    <li><a href="/recipe">Recipe</a></li>
+                    <li><a href="/health">My Health</a></li>
+                    <li><a href="/fun">Fun</a></li>
+                    <li><a href="/community">Community</a></li>
+                </ul>
+                <a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+            </div>
+        </nav>
+		
+	
+		<div><!--BODY-->
+			<div class="container" id="homeElephant"><!--SLIDESHOW-->
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+					  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					  <li data-target="#myCarousel" data-slide-to="1"></li>
+					  <li data-target="#myCarousel" data-slide-to="2"></li>
+					  <li data-target="#myCarousel" data-slide-to="3"></li>
+					  <li data-target="#myCarousel" data-slide-to="4"></li>
+					</ol>
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" id="homeTiger">
+					  <div class="item active">
+						<img src="static/images/pic1.jpg">
+					  </div>
+
+					  <div class="item">
+						<img src="static/images/pic3.jpg">
+					  </div>
+					
+					  <div class="item">
+						<img src="static/images/pic2.png">
+					  </div>
+					  
+					  <div class="item">
+						<img src="static/images/pic5.jpg">
+					  </div>
+					  
+					  <div class="item">
+						<img src="static/images/pic4.jpg">
+					  </div>
+					</div>
+
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					  <span class="glyphicon glyphicon-chevron-left"></span>
+					  <span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#myCarousel" data-slide="next">
+					  <span class="glyphicon glyphicon-chevron-right"></span>
+					  <span class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="col-md-7">
+					<div class="row" id="homeRabbit"><!--About Us-->
+						<h2 style="color: white" align="middle">About Us</h2>
+						<div style="color: white; text-align: center;">
+							<p>iDiet is a long-established health, nutrition and fitness authority that inspires readers to eat smart and live a healthier lifestyle.</p>
+							<p>As a leader in translating cutting-edge nutrition research into recipes and guidance for the home cook, we offer the tools you need to make better choices for everyday healthy living.</p>
+							<p>Each recipe is tested by our staff of Test Kitchens professionals and registered dietitians to meet stringent nutritional requirements and high flavour standards; each story is vetted by our advisory board of leading physicians, nutrition experts, and research specialists.</p>
+						</div>
+					</div>
+					<div class="row"><!--News Announcement-->
+						<h2 style="color: white" align="middle">News Article</h2>
+						<div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <h2 id="homeRacoon">Health</h2>
+                                    <div id="homeWhale">
+                                        <p style="text-align: center;"><img id="homeFox" src="static/images/health.jpg"></p>
+                                        <p style="text-align: center;">Do you have a healthy body?</p>
+                                        &nbsp;&nbsp;<button id="homeHog" type="button" class="btn"><a href="/home_health" id="homeBat" >Read More</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h2 id="homeRacoon">Family & Kids</h2>
+                                    <div id="homeWhale">
+                                        <p style="text-align: center;"><img id="homeFox" src="static/images/family.jpg"></p>
+                                        <p style="text-align: center;">Does you and your family dine well?</p>
+                                        &nbsp;&nbsp;<button id="homeHog" type="button" class="btn">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h2 id="homeRacoon">Travel</h2>
+                                    <div id="homeWhale">
+                                        <p style="text-align: center;"><img id="homeFox" src="static/images/travel.jpg"></p>
+                                        <p style="text-align: center;">Are you able to find healthy food when travelling?</p>
+                                        &nbsp;&nbsp;<button id="homeHog" type="button" class="btn">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h2 id="homeRacoon">Food</h2>
+                                    <div id="homeWhale">
+                                        <p style="text-align: center;"><img id="homeFox" src="static/images/food.jpg"></p>
+                                        <p style="text-align: center;">Are you eating healthily?</p>
+                                        &nbsp;&nbsp;<button id="homeHog" type="button" class="btn">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+						</div>
+					</div>
+                    <br>
+                    <br>
+				</div>
+
+
+				<div class="col-md-5">
+					<div class="row" id="homeLion"><!--Update New Recipe-->
+						<h2 style="color: white" align="middle">New Recipe</h2>
+					</div>
+                    <div id="homeZebra" class="container-fluid">
+                        {% for i in list %}
+                            <a id="homePig" href="/recipe">
+                                <div id="homeCow" class="col-md-6">
+                                    <img id="homeDuck" src="/static/images/food/{{ i["photo"] }}">
+                                    <p><b>Name: </b> {{ i["name"] }}</p>
+                                    <p><b>Calorie: </b>{{ i["cal"] }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+
+					<div class="row" id="homePanda"><!--Social Media Feed-->
+                        <h2 style="color: white" align="middle">Social Media</h2>
+					</div>
+                    <div class="col-md-3">
+                        <div id="homeOtter">
+                            <span class="glyphicon glyphicon-user"></span><h6>John Tan</h6>
+                            <p>Nice Recipe:)</p>
+                            <img id="homeChicken" src="static/images/a.jpg">
+                        </div>
+                        <br>
+                        <div id="homeOtter">
+                            <span class="glyphicon glyphicon-user"></span><h6>Harron Lim</h6>
+                            <p>Thanks for the recipe!!</p>
+                            <img id="homeChicken" src="static/images/b.jpg">
+                        </div>
+                        <br>
+                        <div id="homeOtter">
+                            <span class="glyphicon glyphicon-user"></span><h6>Yuki Wong</h6>
+                            <p>Really appreciated it alot!!</p>
+                            <img id="homeChicken" src="static/images/c.jpg">
+                        </div>
+                        <br>
+                        <div id="homeOtter">
+                            <span class="glyphicon glyphicon-user"></span><h6>James Poh</h6>
+                            <p>It helps alottttttt..</p>
+                            <img id="homeChicken" src="static/images/d.jpg">
+                        </div>
+                    </div>
+				</div>
+			</div>
+		</div>
+
+		{% include 'includes/_footer.html' %}
+	</body>
+</html>

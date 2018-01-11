@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>iDiet</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="icon" href="/static/images/Board.png">
+		<link href="/static/css/skeleton.css" rel="stylesheet">
+		<link href="/static/css/community.css" rel="stylesheet">
+		<link href="/static/css/forums.css" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
+        <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+
+	</head>
+	<body>
+        {% from "includes/_formhelper.html" import render_field %}
+
+		<nav class="navbar navbar-inverse" id="header" data-spy="affix" data-offset-top="1"><!--TOP-->
+			<div class="navbar-header" id="topLeft">
+				<a href="/">
+					<img id="logo" src="/static/images/Logo Reverse.png">
+				</a>
+				<button id="collapse" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topRight">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+
+
+			<div class="collapse navbar-collapse navbar-right" id="topRight">
+				<ul class="nav navbar-nav" id="navList">
+					<li><a href="/">Home</a></li>
+					<li><a href="/recipe">Recipe</a></li>
+					<li><a href="/health">My Health</a></li>
+					<li><a href="/fun">Fun</a></li>
+					<li class="active1"><a href="/community">Community</a></li>
+				</ul>
+				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+			</div>
+		</nav>
+
+		<div><!--BODY-->
+			<div class="container title">
+				<h1>&nbsp </h1>
+				<h3>&nbsp </h3>
+				<p style="font-size:20px;color: white;"><a href="/community">Forums</a> > <a href="/community/general"> General Discussion </a> > Post </p>
+				<h1>&nbsp </h1>
+                <form method="POST" action="">
+                    {{ render_field(post.title, class='form-control', required='required') }}
+                    {{ render_field(post.comment, class='form-control textarea', required='required', rows=50) }}
+                    {{ render_field(post.submit, class='btn btn-default', required='required') }}
+                </form>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+				<h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+                <h1>&nbsp </h1>
+			</div>
+		</div>
+
+		<!--BOTTOM-->
+        {% include 'includes/_footer.html' %}
+
+	</body>
+</html>
