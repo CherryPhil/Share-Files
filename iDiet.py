@@ -120,18 +120,30 @@ def userScoreProcess():
 #COMMUNITY
 @app.route('/community')
 def community():
-    return render_template("community.html")
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("community.html")
+    users = root.child("users/" + userId).get()
+    username = users["username"]
+    return render_template("community.html", username=username)
 
 @app.route('/community/announcements', methods=['GET'])
 def announcements():
-    return render_template("announcements.html")
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("announcements.html")
+    users = root.child("users/" + userId).get()
+    username = users["username"]
+    return render_template("announcements.html", username=username)
 
 @app.route('/community/general')
 def general():
     posts = root.child("posts").get()
     if posts == None:
         noPosts = 'There are no current posts.'
-        return render_template('general.html', generals=noPosts)
+        return render_template('general.html', generals=noPosts, username=username)
     titles = []
     comments = []
     for i in posts:
@@ -140,11 +152,18 @@ def general():
         user_comment = postDetail['comment']
         titles.append(user_title)
         comments.append(user_comment)
-    return render_template("general.html", title=titles, comment=comments)
+    return render_template("general.html", title=titles, comment=comments, username=username)
+
 
 @app.route('/community/recipes')
 def recipes():
-    return render_template("recipes.html")
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("recipes.html")
+    users = root.child("users/" + userId).get()
+    username = users["username"]
+    return render_template("recipes.html", username=username)
 
 @app.route('/community/contactus', methods=['POST', 'GET'])
 def contactus():
@@ -166,7 +185,13 @@ def contactus():
 
 @app.route('/community/faq')
 def faq():
-    return render_template("faq.html")
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("faq.html")
+    users = root.child("users/" + userId).get()
+    username = users["username"]
+    return render_template("faq.html", username=username)
 
 @app.route('/community/announcements/<title_url>', methods=['GET','POST'])
 def append(title_url):
