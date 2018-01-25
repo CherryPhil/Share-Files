@@ -80,24 +80,22 @@
 	border-color: white;
 }
 
-/*ADD FOR EVERYONE*/
+
 #usernameBox{
 	position: relative;
 	cursor: pointer;
-	background-color: red;
+	background-color: darkorange;
 	width: 40px;
 	height: 40px;
-	border-radius: 20px;
+	border-radius: 50%;
 	border: 2px solid white;
 	margin: 20px 40px 15px 20px;
 	display: flex;
+	overflow: hidden;
 }
-#profileCaret{
-	position: absolute;
-	cursor: pointer;
-	color: white;
-	left: 35px;
-	top: 35px;
+#displayPic{
+	height: 100%;
+	width: 100%;
 }
 #profileDropdown{
 	background-color: rgba(0,0,0,0.6) !important;
@@ -122,4 +120,3 @@
 	color: #FF7200 !important;
 	background-color: inherit !important;
 }
-/*ADD FOR EVERYONE*/

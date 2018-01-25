@@ -125,8 +125,7 @@ def community():
     except:
         return render_template("community.html")
     users = root.child("users/" + userId).get()
-    username = users["username"]
-    return render_template("community.html", username=username)
+    return render_template("community.html", user=users)
 
 @app.route('/community/announcements', methods=['GET'])
 def announcements():
@@ -135,15 +134,24 @@ def announcements():
     except:
         return render_template("announcements.html")
     users = root.child("users/" + userId).get()
-    username = users["username"]
-    return render_template("announcements.html", username=username)
+    return render_template("announcements.html", user=users)
 
 @app.route('/community/general')
 def general():
+    try:
+        userId = session["logged_in"]
+        users = root.child("users/" + userId).get()
+    except:
+        users = None
+
     posts = root.child("posts").get()
     if posts == None:
         noPosts = 'There are no current posts.'
-        return render_template('general.html', generals=noPosts, username=username)
+        if users != None:
+            return render_template('general.html', generals=noPosts, user=users)
+        else:
+            return render_template('general.html', generals=noPosts)
+
     titles = []
     comments = []
     for i in posts:
@@ -152,7 +160,10 @@ def general():
         user_comment = postDetail['comment']
         titles.append(user_title)
         comments.append(user_comment)
-    return render_template("general.html", title=titles, comment=comments, username=username)
+    if users != None:
+        return render_template("general.html", title=titles, comment=comments, user=users)
+    else:
+        return render_template("general.html", title=titles, comment=comments)
 
 
 @app.route('/community/recipes')
@@ -162,11 +173,11 @@ def recipes():
     except:
         return render_template("recipes.html")
     users = root.child("users/" + userId).get()
-    username = users["username"]
-    return render_template("recipes.html", username=username)
+    return render_template("recipes.html", user=users)
 
 @app.route('/community/contactus', methods=['POST', 'GET'])
 def contactus():
+#code
     contact = Contact(request.form)
     if request.method == 'POST':
         email = contact.email.data
@@ -180,8 +191,14 @@ def contactus():
             'message': contacts.get_message(),
         })
         return redirect(url_for('contactus'))
+#code
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("contactus.html", contact=contact)
 
-    return render_template("contactus.html", contact=contact)
+    users = root.child("users/" + userId).get()
+    return render_template("contactus.html", contact=contact, user=users)
 
 @app.route('/community/faq')
 def faq():
@@ -190,8 +207,7 @@ def faq():
     except:
         return render_template("faq.html")
     users = root.child("users/" + userId).get()
-    username = users["username"]
-    return render_template("faq.html", username=username)
+    return render_template("faq.html", user=users)
 
 @app.route('/community/announcements/<title_url>', methods=['GET','POST'])
 def append(title_url):
@@ -205,6 +221,7 @@ def append(title_url):
 
 @app.route('/community/general/post', methods=['POST', 'GET'])
 def post():
+    #code
     post = Post(request.form)
     if request.method == 'POST':
         title = post.title.data
@@ -215,9 +232,13 @@ def post():
             'title': posts.get_title(),
             'comment': posts.get_comment(),
         })
-        return redirect(url_for('general'))
-
-    return render_template("post.html", post=post)
+    #code
+    try:
+        userId = session["logged_in"]
+    except:
+        return render_template("post.html", post=post)
+    users = root.child("users/" + userId).get()
+    return render_template("post.html", post=post, user=users)
 
 @app.route('/community/recipes/post_recipe', methods=['POST', 'GET'])
 def post_recipe():
