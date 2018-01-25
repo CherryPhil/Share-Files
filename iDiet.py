@@ -122,7 +122,7 @@ def userScoreProcess():
 def community():
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("community.html")
     users = root.child("users/" + userId).get()
     return render_template("community.html", user=users)
@@ -131,7 +131,7 @@ def community():
 def announcements():
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("announcements.html")
     users = root.child("users/" + userId).get()
     return render_template("announcements.html", user=users)
@@ -141,7 +141,7 @@ def general():
     try:
         userId = session["logged_in"]
         users = root.child("users/" + userId).get()
-    except:
+    except KeyError:
         users = None
 
     posts = root.child("posts").get()
@@ -170,7 +170,7 @@ def general():
 def recipes():
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("recipes.html")
     users = root.child("users/" + userId).get()
     return render_template("recipes.html", user=users)
@@ -194,7 +194,7 @@ def contactus():
 #code
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("contactus.html", contact=contact)
 
     users = root.child("users/" + userId).get()
@@ -204,7 +204,7 @@ def contactus():
 def faq():
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("faq.html")
     users = root.child("users/" + userId).get()
     return render_template("faq.html", user=users)
@@ -217,8 +217,12 @@ def append(title_url):
         if user_details['title'] == title_url:
             titled = user_details['title']
             commented = user_details['comment']
-    return render_template("append.html", titled=titled, commented=commented)
-
+    try:
+        userId = session["logged_in"]
+    except KeyError:
+        return render_template("append.html", titled=titled, commented=commented, user=users)
+    users = root.child("users/" + userId).get()
+    return render_template("append.html", titled=titled, commented=commented, user=users)
 @app.route('/community/general/post', methods=['POST', 'GET'])
 def post():
     #code
@@ -235,28 +239,14 @@ def post():
     #code
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return render_template("post.html", post=post)
     users = root.child("users/" + userId).get()
     return render_template("post.html", post=post, user=users)
 
 @app.route('/community/recipes/post_recipe', methods=['POST', 'GET'])
 def post_recipe():
-    postR = User_recipe(request.form)
-    if request.method == 'POST':
-        food = postR.food.data
-        food_type = postR.food_type.data
-        recipes = postR.recipes.data
-        postRs = recipeObj(food, food_type, recipes)
-        postR_db = root.child('recipes')
-        postR_db.push({
-            'food': postRs.get_food(),
-            'food_type': postRs.get_food_type,
-            'recipes': postRs.get_recipes,
-        })
-        return redirect(url_for('recipes'))
-
-    return render_template("post_recipe.html", postR=postR)
+    return render_template("post_recipe.html")
 
 #LOGIN
 @app.route("/login", methods=["POST","GET"])

@@ -3,23 +3,6 @@ body{
 	color: white;
 }
 
-/*Breadcrumb*/
-.Breadcrumb{
-	font-size: 12px;
-	margin-top: 30px;
-}
-.BreadcrumbHome{
-	color: #808080;
-	transition: all .3s ease-in-out;
-}
-.BreadcrumbHome:hover{
-	color: #FF7200;
-	transition: all .3s ease-in-out;
-}
-.BreadcrumbHere{
-	font-weight: bold;
-}
-
 .post{
 	background: rgba(255,255,255, 0.1);
 	border-bottom: solid 1px gray;
@@ -42,3 +25,9 @@ body{
 	font-size: 20px;
 }
 
+.bordergrey{
+}
+.bordergrey > hr{
+    border-color: white;
+    opacity: 0.2;
+}
