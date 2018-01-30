@@ -23,6 +23,7 @@ body{
 	background:rgba(0,0,0,0.5);
 	box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
     transition: all .1s ease-in-out;
+	font-family: Calibri Light;
 }
 .tabs:hover{
 	background:rgba(0,0,0,0.3);
@@ -57,9 +58,7 @@ body{
 .orange{
     color: #FF7200;
 }
-.darkerorange{
-    color: #F49033;
-}
+
 .titlePad {
     padding: 10px 0 7px 14px;
 }

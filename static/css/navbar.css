@@ -84,7 +84,6 @@
 #usernameBox{
 	position: relative;
 	cursor: pointer;
-	background-color: darkorange;
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
@@ -120,3 +119,4 @@
 	color: #FF7200 !important;
 	background-color: inherit !important;
 }
+
