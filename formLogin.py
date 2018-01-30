@@ -4,7 +4,3 @@ class LoginForm(Form):
     username = StringField("")
     password = PasswordField("")
     login = SubmitField("")
-
-    adminusername = StringField("")
-    adminpassword = PasswordField("")
-    adminlogin = SubmitField("")
