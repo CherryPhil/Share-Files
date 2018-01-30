@@ -17,6 +17,7 @@
 	</head>
 	<body>
 		{% include 'includes/_community_navbar.html' %}
+        {% from "includes/_formhelper.html" import render_field %}
 
 		<div><!--BODY-->
 			<div class="container">
@@ -24,6 +25,25 @@
 				<div class="Breadcrumb">
 					<a href="/community" class="BreadcrumbHome">Community</a>&nbsp;<span class="glyphicon glyphicon-menu-right"></span>&nbsp;<a href="/community/recipes" class="BreadcrumbHome">Recipes</a>&nbsp;<span class="glyphicon glyphicon-menu-right"></span>&nbsp;<span class="BreadcrumbHere">Post</span>
 				</div>
+				<br/><br/><br/>
+				<form method="POST" action="">
+					{{ render_field(postR.name, class='form-control', required='required', placeholder='e.g. Chicken Tikka Masala') }}
+					<br/>
+					{{ render_field(postR.type, class='radio', required='required') }}
+					<br/>
+					{{ render_field(postR.prep_time, class='form-control', type='number', required='required') }}
+					<br/>
+					{{ render_field(postR.cooking_time, class='form-control', type='number', required='required') }}
+					<br/>
+					{{ render_field(postR.calories, class='form-control', type='number', required='required') }}
+					<br/>
+					{{ render_field(postR.ingredients, class='form-control', required='required', placeholder='e.g. Chicken,Yogurt,Cream,Tomato,Onion,Garlic,Ginger,Chili pepper,Coconut') }}
+					<br/>
+					{{ render_field(postR.recipes, class='form-control', required='required', rows='12') }}
+
+					<br/>
+					{{ render_field(postR.submit, class='btn btn-default', required='required') }}
+				</form>
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			</div>
 		</div>

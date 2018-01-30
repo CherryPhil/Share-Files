@@ -21,7 +21,7 @@
         </ul>
 
         {% if user != null %}
-            <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown">
+            <div id="usernameBox" style="background-color: {{ user['displaypicturecolor'] }}" class="dropdown-toggle" data-toggle="dropdown">
                 <img id="displayPic" src={{ user["displaypicture"] }}>
             </div>
             <ul id="profileDropdown" class="dropdown-menu">

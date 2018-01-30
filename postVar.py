@@ -1,4 +1,4 @@
-from wtforms import Form, StringField, SubmitField, SelectField, TextAreaField, validators
+from wtforms import Form, StringField, SubmitField, SelectField, TextAreaField, RadioField, IntegerField, validators
 
 class Post(Form):
     title = StringField('Title', [validators.Length(min=1, max=50)])
@@ -12,7 +12,11 @@ class Contact(Form):
     submit = SubmitField('Submit')
 
 class User_recipe(Form):
-    food = StringField('Food')
-    food_type = SelectField('Type', choices=[('Fish'), ('Chicken'), ('Beef'), ('Pork'), ('Lamb'), ('Vege')], default='')
-    recipes = TextAreaField('Recipe')
+    name = StringField('Food Name', [validators.Length(min=4, max=20)])
+    type = RadioField('Type', choices=[('H', 'Healthy'), ('U', 'Unhealthy')], default='H')
+    prep_time = IntegerField('Preparation Time (in minutes)')
+    cooking_time = IntegerField('Cooking Time (in minutes)')
+    calories = IntegerField('Calories')
+    ingredients = StringField('Ingredients')
+    recipes = TextAreaField('Recipes')
     submit = SubmitField('Post')

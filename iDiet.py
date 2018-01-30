@@ -153,27 +153,42 @@ def general():
             return render_template('general.html', generals=noPosts)
 
     titles = []
-    comments = []
     for i in posts:
         postDetail = posts[i]
         user_title = postDetail['title']
-        user_comment = postDetail['comment']
         titles.append(user_title)
-        comments.append(user_comment)
     if users != None:
-        return render_template("general.html", title=titles, comment=comments, user=users)
+        return render_template("general.html", title=titles, user=users)
     else:
-        return render_template("general.html", title=titles, comment=comments)
+        return render_template("general.html", title=titles)
 
 
 @app.route('/community/recipes')
 def recipes():
     try:
         userId = session["logged_in"]
+        users = root.child("users/" + userId).get()
     except KeyError:
-        return render_template("recipes.html")
-    users = root.child("users/" + userId).get()
-    return render_template("recipes.html", user=users)
+        users = None
+
+    postsR = root.child('user_recipes').get()
+    if postsR == None:
+        noPostsR = 'There are no current recipes.'
+        if users != None:
+            return render_template('recipes.html', recipes=noPostsR, user=users)
+        else:
+            return render_template('recipes.html', recipes=noPostsR)
+
+    names = []
+    for i in postsR:
+        postRDetail = postsR[i]
+        user_name = postRDetail['name']
+        names.append(user_name)
+    if users != None:
+        return render_template('recipes.html', name=names, user=users)
+    else:
+        return render_template('recipes.html', name=names)
+
 
 @app.route('/community/contactus', methods=['POST', 'GET'])
 def contactus():
@@ -209,7 +224,7 @@ def faq():
     users = root.child("users/" + userId).get()
     return render_template("faq.html", user=users)
 
-@app.route('/community/announcements/<title_url>', methods=['GET','POST'])
+@app.route('/community/general/<title_url>', methods=['GET','POST'])
 def append(title_url):
     posts = root.child("posts").get()
     for i in posts:
@@ -223,6 +238,16 @@ def append(title_url):
         return render_template("append.html", titled=titled, commented=commented, user=users)
     users = root.child("users/" + userId).get()
     return render_template("append.html", titled=titled, commented=commented, user=users)
+
+@app.route('/community/recipes/append2')
+def append2():
+    try:
+        userId = session["logged_in"]
+    except KeyError:
+        return render_template('append2.html')
+    users = root.child('users/' + userId).get()
+    return render_template('append2.html', user=users)
+
 @app.route('/community/general/post', methods=['POST', 'GET'])
 def post():
     #code
@@ -246,7 +271,32 @@ def post():
 
 @app.route('/community/recipes/post_recipe', methods=['POST', 'GET'])
 def post_recipe():
-    return render_template("post_recipe.html")
+    postR = User_recipe(request.form)
+    if request.method == 'POST':
+        name = postR.name.data
+        type = postR.type.data
+        prep_time = postR.prep_time.data
+        cooking_time = postR.cooking_time.data
+        calories = postR.calories.data
+        ingredients = postR.ingredients.data
+        recipes = postR.recipes.data
+        postsR = recipeObj(name, type, prep_time,cooking_time, calories, ingredients, recipes)
+        postR_db = root.child('user_recipes')
+        postR_db.push({
+            'name': postsR.get_name(),
+            'type': postsR.get_type(),
+            'prep_time': postsR.get_prep_time(),
+            'cooking_time': postsR.get_cooking_time(),
+            'calories': postsR.get_calories(),
+            'ingredients': postsR.get_ingredients(),
+            'recipes': postsR.get_recipes(),
+        })
+    try:
+        userId = session["logged_in"]
+    except KeyError:
+        return render_template('post_recipe.html', postR=postR)
+    users = root.child('users/' + userId).get()
+    return render_template("post_recipe.html", postR=postR, user=users)
 
 #LOGIN
 @app.route("/login", methods=["POST","GET"])

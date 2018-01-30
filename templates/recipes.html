@@ -26,9 +26,21 @@
 				</div>
 				<br/><br/><br/>
                 <h1><span class="glyphicon glyphicon-book orange"></span>  Recipes</h1>
+				{% if user != null %}
 					<a href="/community/recipes/post_recipe">
-						<p class="btn btn-default" style="float: right;"> New Topic </p>
+						<p class="btn btn-default" style="float: right;"> New Recipe </p>
 					</a>
+				{% endif %}
+
+				<br/><br/><br/>
+				{% for i in name %}
+                    <a href="/community/recipes/append2">
+                        <div class="col-md-12 post">
+					        <p style="font-size: 24px"> {{ i }}  </p>
+				        </div>
+                    </a>
+                {% endfor %}
+                <h3> {{ recipes }} </h3>
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			</div>
 		</div>
