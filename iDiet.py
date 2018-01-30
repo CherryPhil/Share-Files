@@ -5,6 +5,7 @@ from firebase_admin import credentials, db
 
 from formLogin import LoginForm
 from formRegister import RegisterForm
+from formProfile import ProfileForm
 
 from postVar import Post
 from postVar import Contact
@@ -23,7 +24,6 @@ default_app = firebase_admin.initialize_app(cred, {
 })
 
 root = db.reference()
-
 
 app = Flask(__name__)
 
@@ -75,14 +75,11 @@ def health():
 #FUN
 @app.route("/fun")
 def fun():
-    #ADD FOR EVERYONE
     try:
         userId = session["logged_in"]
-    except:
-    #ADD FOR EVERYONE
+    except KeyError:
         return render_template("fun.html", cha1=-2, cha2=-2, cha3=-2)
     users = root.child("users/"+userId).get()
-    username = users["username"]
     if "challenge1" in users:
         cha1 = users["challenge1"]
     else:
@@ -97,7 +94,7 @@ def fun():
         cha3 = users["challenge3"]
     else:
         cha3 = -1
-    return render_template("fun.html", cha1=cha1, cha2=cha2, cha3=cha3, username=username)
+    return render_template("fun.html", cha1=cha1, cha2=cha2, cha3=cha3, user=users)
 
 @app.route("/userScoreProcess")
 def userScoreProcess():
@@ -105,7 +102,7 @@ def userScoreProcess():
     questionNum = request.args.get("Qnum")
     try:
         userId = session["logged_in"]
-    except:
+    except KeyError:
         return jsonify(-2)
     user_db = root.child("users/"+userId)
 
@@ -120,79 +117,34 @@ def userScoreProcess():
 #COMMUNITY
 @app.route('/community')
 def community():
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("community.html")
-    users = root.child("users/" + userId).get()
-    return render_template("community.html", user=users)
+    return render_template("community.html")
 
 @app.route('/community/announcements', methods=['GET'])
 def announcements():
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("announcements.html")
-    users = root.child("users/" + userId).get()
-    return render_template("announcements.html", user=users)
+    return render_template("announcements.html")
 
 @app.route('/community/general')
 def general():
-    try:
-        userId = session["logged_in"]
-        users = root.child("users/" + userId).get()
-    except KeyError:
-        users = None
-
     posts = root.child("posts").get()
     if posts == None:
         noPosts = 'There are no current posts.'
-        if users != None:
-            return render_template('general.html', generals=noPosts, user=users)
-        else:
-            return render_template('general.html', generals=noPosts)
-
+        return render_template('general.html', generals=noPosts)
     titles = []
+    comments = []
     for i in posts:
         postDetail = posts[i]
         user_title = postDetail['title']
+        user_comment = postDetail['comment']
         titles.append(user_title)
-    if users != None:
-        return render_template("general.html", title=titles, user=users)
-    else:
-        return render_template("general.html", title=titles)
-
+        comments.append(user_comment)
+    return render_template("general.html", title=titles, comment=comments)
 
 @app.route('/community/recipes')
 def recipes():
-    try:
-        userId = session["logged_in"]
-        users = root.child("users/" + userId).get()
-    except KeyError:
-        users = None
-
-    postsR = root.child('user_recipes').get()
-    if postsR == None:
-        noPostsR = 'There are no current recipes.'
-        if users != None:
-            return render_template('recipes.html', recipes=noPostsR, user=users)
-        else:
-            return render_template('recipes.html', recipes=noPostsR)
-
-    names = []
-    for i in postsR:
-        postRDetail = postsR[i]
-        user_name = postRDetail['name']
-        names.append(user_name)
-    if users != None:
-        return render_template('recipes.html', name=names, user=users)
-    else:
-        return render_template('recipes.html', name=names)
-
+    return render_template("recipes.html")
 
 @app.route('/community/contactus', methods=['POST', 'GET'])
 def contactus():
-#code
     contact = Contact(request.form)
     if request.method == 'POST':
         email = contact.email.data
@@ -206,25 +158,14 @@ def contactus():
             'message': contacts.get_message(),
         })
         return redirect(url_for('contactus'))
-#code
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("contactus.html", contact=contact)
 
-    users = root.child("users/" + userId).get()
-    return render_template("contactus.html", contact=contact, user=users)
+    return render_template("contactus.html", contact=contact)
 
 @app.route('/community/faq')
 def faq():
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("faq.html")
-    users = root.child("users/" + userId).get()
-    return render_template("faq.html", user=users)
+    return render_template("faq.html")
 
-@app.route('/community/general/<title_url>', methods=['GET','POST'])
+@app.route('/community/announcements/<title_url>', methods=['GET','POST'])
 def append(title_url):
     posts = root.child("posts").get()
     for i in posts:
@@ -232,25 +173,10 @@ def append(title_url):
         if user_details['title'] == title_url:
             titled = user_details['title']
             commented = user_details['comment']
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("append.html", titled=titled, commented=commented, user=users)
-    users = root.child("users/" + userId).get()
-    return render_template("append.html", titled=titled, commented=commented, user=users)
-
-@app.route('/community/recipes/append2')
-def append2():
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template('append2.html')
-    users = root.child('users/' + userId).get()
-    return render_template('append2.html', user=users)
+    return render_template("append.html", titled=titled, commented=commented)
 
 @app.route('/community/general/post', methods=['POST', 'GET'])
 def post():
-    #code
     post = Post(request.form)
     if request.method == 'POST':
         title = post.title.data
@@ -261,42 +187,27 @@ def post():
             'title': posts.get_title(),
             'comment': posts.get_comment(),
         })
-    #code
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template("post.html", post=post)
-    users = root.child("users/" + userId).get()
-    return render_template("post.html", post=post, user=users)
+        return redirect(url_for('general'))
+
+    return render_template("post.html", post=post)
 
 @app.route('/community/recipes/post_recipe', methods=['POST', 'GET'])
 def post_recipe():
     postR = User_recipe(request.form)
     if request.method == 'POST':
-        name = postR.name.data
-        type = postR.type.data
-        prep_time = postR.prep_time.data
-        cooking_time = postR.cooking_time.data
-        calories = postR.calories.data
-        ingredients = postR.ingredients.data
+        food = postR.food.data
+        food_type = postR.food_type.data
         recipes = postR.recipes.data
-        postsR = recipeObj(name, type, prep_time,cooking_time, calories, ingredients, recipes)
-        postR_db = root.child('user_recipes')
+        postRs = recipeObj(food, food_type, recipes)
+        postR_db = root.child('recipes')
         postR_db.push({
-            'name': postsR.get_name(),
-            'type': postsR.get_type(),
-            'prep_time': postsR.get_prep_time(),
-            'cooking_time': postsR.get_cooking_time(),
-            'calories': postsR.get_calories(),
-            'ingredients': postsR.get_ingredients(),
-            'recipes': postsR.get_recipes(),
+            'food': postRs.get_food(),
+            'food_type': postRs.get_food_type,
+            'recipes': postRs.get_recipes,
         })
-    try:
-        userId = session["logged_in"]
-    except KeyError:
-        return render_template('post_recipe.html', postR=postR)
-    users = root.child('users/' + userId).get()
-    return render_template("post_recipe.html", postR=postR, user=users)
+        return redirect(url_for('recipes'))
+
+    return render_template("post_recipe.html", postR=postR)
 
 #LOGIN
 @app.route("/login", methods=["POST","GET"])
@@ -306,6 +217,19 @@ def login():
     regform = RegisterForm(request.form)
 
     users = root.child("users").get()
+    admins = root.child("admins").get()
+
+    if request.method == "POST" and form.adminlogin.data:
+        username = form.adminusername.data
+        password = form.adminpassword.data
+
+        for admin in admins:
+            adminDetail = admins[admin]
+            if adminDetail["username"] == username and adminDetail["password"] == password:
+                session["logged_in_admin"] = admin
+                return redirect(url_for("home"))
+        error = "Please check your Username and Admin Password given."
+        return render_template("login.html", form=form, regform=regform, checkuser=users, error=error)
 
     if request.method == "POST" and form.login.data:
         username = form.username.data
@@ -331,17 +255,71 @@ def login():
             "username": user.get_username(),
             "firstname": user.get_firstname(),
             "lastname": user.get_lastname(),
-            "password": user.get_password()
+            "password": user.get_password(),
+            "displaypicture": "/static/images/display_pic.png",
+            "displaypicturecolor": "#FF8C00"
         })
         return render_template("login.html", form=form, regform=regform, checkuser=users)
 
     return render_template("login.html", form=form, regform=regform, checkuser=users)
 
 #PROFILE
-
-@app.route("/profile")
+@app.route("/profile", methods=["POST","GET"])
 def profile():
-    return render_template("profile.html")
+    try:
+        proform = ProfileForm(request.form)
+        userId = session["logged_in"]
+        users = root.child("users/" + userId).get()
+
+        proform.firstname.data = users["firstname"]
+        proform.lastname.data = users["lastname"]
+        proform.username.data = users["username"]
+
+        if request.method == "POST" and proform.closeacc.data:
+            root.child("users/" + userId).delete()
+            return redirect(url_for('login'))
+
+        if request.method == "POST" and proform.changepassword.data:
+            user_db = root.child("users/" + userId)
+            user_db.update({"password": proform.newpassword.data})
+            return redirect(url_for('profile'))
+
+        return render_template("profile.html", proform=proform, user=users)
+    except KeyError:
+        return redirect(url_for("home"))
+
+@app.route("/updatingData")
+def update_data():
+    processProfileValue = request.args.get("value")
+    processProfileKey = request.args.get("key")
+
+    userId = session["logged_in"]
+    user_db = root.child("users/" + userId)
+    user_db.update({processProfileKey: processProfileValue})
+    users = root.child("users/" + userId).get()
+    return jsonify(users)
+
+@app.route("/checkForSameUsername")
+def check_sameUsername():
+    checkingUsername = request.args.get("checkThis")
+
+    users = root.child("users").get()
+    for i in users:
+        if users[i]["username"] == checkingUsername:
+            return jsonify(False)
+    return jsonify(True)
+
+@app.route("/updateDP")
+def update_dp():
+    processFilePath = request.args.get("filePath")
+    processColor = request.args.get("color")
+
+    userId = session["logged_in"]
+    user_db = root.child("users/" + userId)
+    user_db.update({"displaypicture": processFilePath,
+                    "displaypicturecolor": processColor
+                    })
+    return jsonify()
 
 #OTHERS
 @app.route("/privacy")

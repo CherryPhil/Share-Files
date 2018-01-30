@@ -38,13 +38,12 @@
                     <li><a href="/community">Community</a></li>
                 </ul>
 
-                <!--ADD FOR EVERYONE-->
-                {% if username != null %}
-                    <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown">
-                        <span id="profileCaret" class="caret"></span>
+                {% if user != null %}
+                    <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown" style="background-color: {{ user["displaypicturecolor"] }}">
+                        <img id="displayPic" src={{ user["displaypicture"] }}>
                     </div>
                     <ul id="profileDropdown" class="dropdown-menu">
-                        <li class="disabled"><a id="dropdownUsernameLink">Hi, <span>{{ username }}</span></a></li>
+                        <li class="disabled"><a id="dropdownUsernameLink">Hi, <span>{{ user["firstname"] }}</span></a></li>
                         <li class="divider"></li>
                         <li><a class="dropdownLink" href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profile</a></li>
                         <li><a class="dropdownLink" href="/login"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Sign out</a></li>
@@ -52,7 +51,6 @@
                 {% else %}
                     <a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
                 {% endif %}
-                <!--ADD FOR EVERYONE-->
             </div>
 
         </nav>
@@ -65,7 +63,18 @@
 		</div>
 		<div id="mainBox">
 			<div id="mainFun1">
-                Fun facts slide show
+                <div class="container">
+                    <div class="scene">
+                        <div class="cube">
+                            <div class="cube-face  cube-face-front">front</div>
+                            <div class="cube-face  cube-face-back">back</div>
+                            <div class="cube-face  cube-face-left">left</div>
+                            <div class="cube-face  cube-face-right">right</div>
+                            <div class="cube-face  cube-face-top">top</div>
+                            <div class="cube-face  cube-face-bottom">bototm</div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 			<div id="mainFun2">
 				Game maybe
