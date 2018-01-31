@@ -1,3 +1,8 @@
+function setBMI(){
+	var x = document.getElementById('#newdp');
+
+}
+
 function computeBMI() {
 						// user inputs
 						var height = Number(document.getElementById("height").value);
@@ -24,8 +29,8 @@ function computeBMI() {
 						else if (output >= 18.5 && output <= 25)
 							document.getElementById("comment").innerText = "Normal";
 						else if (output >= 25 && output <= 30)
-							document.getElementById("comment").innerText = "Obese";
-						else if (output > 30)
 							document.getElementById("comment").innerText = "Overweight";
+						else if (output > 30)
+							document.getElementById("comment").innerText = "Obese";
 						// document.getElementById("answer").value = output;
 					}}
