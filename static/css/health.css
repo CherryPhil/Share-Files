@@ -1,3 +1,7 @@
+body{
+    background: url('../images/running1.jfif') no-repeat center center fixed
+}
+
 input[type=text], select {
     width: 100%;
     padding: 12px 20px;
@@ -29,10 +33,7 @@ input[type=submit]:hover {
     padding: 20px;
 	width: 50%;
 	margin: 0 auto;
-}
-
-.parent-div{
-	 background-color:white;
+    opacity: 0.95;
 }
 
 .courses{
@@ -53,74 +54,40 @@ input[type=submit]:hover {
     border-radius: 4px;
     cursor: pointer;
 }
-
-div.recipe_box {
-	height: 460px;
-	width: 850px;
-	border: 2px solid #434343;
-	border-radius: 8px;
-}
-div.recipe_box1 {
-	height: 455px;
-	width: 845px;
-	background-image: url(../images/board1.png);
-	overflow-y: auto;
-	overflow-x: hidden;
+#addDataPoint{
+    border-radius: 4px;
+    border: none;
+    background-color: #4CAF50;
 }
 
-#Cook {
-	height: 25px;
-	width: 20px;
-	margin-right: 5px;
-}
-
-#Cook1 {
-    height: 20px;
-    width: 30px;
-	margin-right: 5px;
-}
-
-.listing {
+#reco{
     text-align: center;
-    height: 20px;
-    font-size: 6px;
 }
 
-#myTable {
+table, th , td{
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: white;
+    opacity: 0.9;
+}
+
+table{
     border-collapse: collapse;
-    width: 800px;
-    border: 1px solid #ddd;
+    width: 70%;
+    empty-cells:hide;
     font-size: 18px;
-    background: rgba(255, 146, 84, 0.5);
 }
 
-#myTable th, #myTable td {
-    text-align: left;
-    padding: 12px;
+th, td{
+    padding: 15px;
 }
 
-#myTable tr {
-    border-bottom: 1px solid #ddd;
+th{
+    background-color: #f45c42;
 }
 
-#myTable tr.header {
-    background-color: #434343;
-    color: white;
-}
-
-#myTable1 tr:hover {
-	  background-color: #FF9254;
-}
-
-#photo {
-    width: 200px;
-    height: 120px;
-}
-
-.child_div_1{
-    margin: 0px 5px 0px 5px;
-}
-
-.child_div_2{
-    margin: 0px 5px 0px 5px;
+tr{
+    background-color: #33cc33;
 }
