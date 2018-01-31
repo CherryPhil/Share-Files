@@ -59,18 +59,29 @@ def Recipe():
 @app.route("/health")
 def health():
     database_recipes = root.child('recipe').get()
-    name = []
-    for i in database_recipes:
-        recipe_detail = database_recipes[i]
-        name.append(recipe_detail)
 
     database_workout = root.child('workout').get()
-    name1 = []
-    for i in database_workout:
-        workout_detail = database_workout[i]
-        name1.append(workout_detail)
 
-    return render_template("health.html", name=name, name1=name1)
+    try:
+        userId = session["logged_in"]
+    except KeyError:
+        return render_template("health.html", namer=database_recipes, name1=database_workout)
+
+    users = root.child("users/" + userId).get()
+    return render_template("health.html", namer=database_recipes, name1=database_workout, user=users)
+
+@app.route("/updateToFirebase")
+def updateToFirebase():
+    DPS = request.args.get("bmis")
+    print(DPS)
+    try:
+        userId = session["logged_in"]
+    except KeyError:
+        return jsonify(False)
+    users = root.child("users/" + userId)
+    users.update({"BMIgraph": DPS})
+
+    return jsonify(True)
 
 #FUN
 @app.route("/fun")
