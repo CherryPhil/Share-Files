@@ -22,8 +22,66 @@
 }
 
 /*Main 1*/
+#fun1TopText{
+	position: relative;
+	font-weight: bold;
+	font-size: 20px;
+	margin-top: 50px;
+	margin-bottom: 80px;
+}
+#fun1Achievement{
+	width: 70px;
+	position: absolute;
+	margin-left: 20px;
+}
 #mainFun1{
-
+	text-align: center;
+	background-color: #dedede;
+}
+.scene {
+	display: inline-block;
+	margin-bottom: 100px;
+	width: 250px;
+	height: 250px;
+	perspective: 600px;
+}
+.cube {
+	position: relative;
+	width: inherit;
+	height: inherit;
+	transform-style: preserve-3d;
+	transition: transform 0.6s;
+	color: white;
+}
+.cube-face {
+	width: inherit;
+	height: inherit;
+	position: absolute;
+	opacity: 0.8;
+}
+.cube-face-front {
+	background: red;
+	transform: translate3d(0, 0, 125px);
+}
+.cube-face-back {
+	background: black;
+	transform: rotateY(180deg) translate3d(0, 0, 125px);
+}
+.cube-face-left {
+	background: green;
+	transform: rotateY(-90deg) translate3d(0, 0, 125px);
+}
+.cube-face-right {
+	background: #c500c5;
+	transform: rotateY(90deg) translate3d(0, 0, 125px);
+}
+.cube-face-top {
+	background: #0000b4;
+	transform: rotateX(90deg) translate3d(0, 0, 125px);
+}
+.cube-face-bottom {
+	background: #ac6500;
+	transform: rotateX(-90deg) translate3d(0, 0, 125px);
 }
 
 /*Main 2*/
@@ -43,7 +101,6 @@
 	bottom: 5px;
 }
 #challengeButton, #challengeButton2, #challengeButton3{
-	background: 0 0;
 	background-color: #404040;
 	padding: 10px 50px;
 	margin: 60px 20px 15px 20px;
@@ -62,7 +119,7 @@
 	font-weight: bold;
 	font-size: 20px;
 	padding-bottom: 60px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 /*Modal*/
@@ -104,7 +161,7 @@
 }
 
 #modalProgress{
-	width: 0%;
+	width: 0;
 }
 
 /*Alert Achievement*/
@@ -131,7 +188,7 @@
 #AlertUnlock{
 	font-weight: bold;
 	padding-top: 5px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 #AlertText{
 	font-size: 13px;

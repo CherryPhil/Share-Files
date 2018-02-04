@@ -36,3 +36,23 @@ body{
 .juicy {
 	font-size: 16px;
 }
+
+.newline {
+	white-space: pre-wrap;
+}
+
+.editBtn {
+	background-color: #FF7200;
+	border-radius: 20px;
+	border: 1px solid black;
+	color: white;
+	float: right;
+	margin-right: 25px;
+    margin-top: -40px;
+}
+
+.editBtn:hover {
+	background-color: #FFFFFF;
+	color: black;
+	transition: all .2s ease-in-out;
+}

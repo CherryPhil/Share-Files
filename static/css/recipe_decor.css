@@ -69,7 +69,6 @@ input[type=text].search {
     border-radius: 4px;
     font-size: 16px;
     background-color: white;
-    background-image: url('../images/searchicon.png');
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
@@ -136,7 +135,8 @@ div.recipe_box1 {
 .listing {
     align: center;
     height: 20px;
-    font-size: 6px;
+    font-size: 12px;
+	padding-top: 0;
 }
 
 #myTable {

@@ -33,7 +33,7 @@ window.onload = function () {
 
     $("#addDataPoint").click(function () {
 
-        if ($("#newdp").val() === 0) {
+        if ($("#newdp").val() == 0) {
             alert("No Input Detected")
         }
         else {

@@ -6,7 +6,7 @@
 	transition: 0.5s;
 	background-color: rgba(0,0,0,0.4);
 	border-bottom: 1px solid rgba(0,0,0,0.5);
-	border-radius: 0px;
+	border-radius: 0;
 }
 .affix{
 	transition: 0.5s;
@@ -22,10 +22,10 @@
 #logo{
 	width: 150px;
 	padding-left: 20px;
-	margin: 20px 0px 15px 0px;
+	margin: 20px 0 15px 0;
 }
 #collapse{
-	margin: 25px 10px 15px 0px;
+	margin: 25px 10px 15px 0;
 }
 @media (min-width: 0px) and (max-width: 910px) {
     .navbar-collapse.collapse {
@@ -51,7 +51,7 @@
 }
 #navList li{
 	display: inline-block;
-	margin: 0px 15px;
+	margin: 0 15px;
 }
 #navList li:hover{
 	transition: all .2s ease-in-out;
@@ -119,4 +119,3 @@
 	color: #FF7200 !important;
 	background-color: inherit !important;
 }
-

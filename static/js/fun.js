@@ -1,3 +1,60 @@
+//////////////////////////////////////////////////////////////FUN FACT//////////////////////////////////////////////////////////////
+var funFact = [["Did you know that only doing crunches will not get rid of belly fat?", "Unfortunately we can’t spot reduce.  The best way to target abdominal fat is to reduce your overall body fat, which means plenty of cardio, combined with strength training. Stick to it, because oftentimes the first place you gain weight is the last place you lose it."],
+    ["Did you know that eating after 8 doesn’t necessarily mean you’ll gain weight?", "The fact is: what you eat, how much you eat, and how much physical activity you do determines whether you gain or lose weight.  Morning noon or night, when you eat too much your body stores excess calories as fat."],
+    ["Did you know that exercise could help reduce anxiety?", "Exercise provides distraction, reduces muscle tension, improves resilience, builds brain resources, and sets you free from disabling thoughts and emotions.  Exercise frees your mind and helps you take action."],
+    ["Did you know that effective goal setting is still one of the most proven methods for losing weight and breaking exercise plateaus?", "Exercise alleviates the ambiguity of “doing your best” or “trying your hardest.”  Specific, challenging goals lead to better performance and more commitment."],
+    ["Dieting dulls the mind.", "Studies have shown there is a link between dieting and mental performance. The reduction in working memory capacity occurs because slimmers' brains are so preoccupied with dieting that other brain processes don't get a look in."],
+    ["Did you know that if you’re trying to lose weight, the three most helpful sections of the food label are right at the top: Serving size, servings per container, and calories per serving?", "Read the label and be careful. If there are two servings and you eat both, unfortunately you double the calories, double the fat, and double the trouble."],
+    ["Did you know that we are all motivated to exercise and stay healthy for different reasons?", "It’s also important to recognize that our motivations may change over time. Being clear about your motivations and embracing the types of exercise that you enjoy and make you feel successful are key factors toward adherence."],
+    ["Breakfast is the most important meal and eating it can help lose weight.", "The body's internal chemistry is at its most active first thing in the morning, so anything eaten then will be used to the maximum."],
+    ["Drinking a litre of water everyday helps dieting.", "Not only does water flush out and purify the system but drinking a glass of water 30 minutes before a meal helps weight loss. It fills up the stomach and makes you eat less."],
+    ["", ""]
+];
+var seen = [];
+var possibilityXY = ["Y", "X"];
+var possibilityXDegree = ["-90deg", "90deg", "0deg"];
+var possibilityYDegree = ["180deg", "90deg", "-90deg"];
+var axis = "X";
+var degree = "0deg";
+var randomIndex = Math.floor(Math.random() * (funFact.length - 1));
+var previousIndex = randomIndex;
+$("#X0deg").html("<b>"+funFact[randomIndex][0]+"</b><hr/><p>"+funFact[randomIndex][1]+"</p>");
+seen.push(randomIndex);
+var previous = "rotateX(0deg)";
+
+$(".scene").click(function(){
+
+    $("#"+axis+degree).html("");
+
+    while(true) {
+        axis = possibilityXY[Math.floor(Math.random() * possibilityXY.length)];
+        if (axis == "Y") {
+            degree = possibilityYDegree[Math.floor(Math.random() * possibilityYDegree.length)];
+        } else if (axis == "X") {
+            degree = possibilityXDegree[Math.floor(Math.random() * possibilityXDegree.length)];
+        }
+        if (previous != "rotate"+axis+"("+degree+")"){
+            break;
+        }
+    }
+
+    while(true){
+        randomIndex = Math.floor(Math.random() * (funFact.length - 1));
+        if(randomIndex != previousIndex){
+            break;
+        }
+    }
+    if(seen.includes(randomIndex) == true){}else{seen.push(randomIndex);}
+    console.log(seen);//DSADSADNSAKJNSAKNCASCNASKJCNASNCASCKN
+    $.getJSON("/achievement4",{list: seen});
+    $("#"+axis+degree).html("<b>"+funFact[randomIndex][0]+"</b><hr/><p>"+funFact[randomIndex][1]+"</p>");
+    previousIndex = randomIndex;
+
+    previous = "rotate"+axis+"("+degree+")";
+    $(".cube").css("transform", "rotate"+axis+"("+degree+")");
+});
+
+//////////////////////////////////////////////////////////////QUIZ//////////////////////////////////////////////////////////////
 var question = [["Maximum carbohydrates are obtained from:", "A"],
                 ["Vitamins, minerals and proteins in suitable amounts are given to body by:", "D"],
                 ["According to food guide pyramid fats oils and sweets should be used:", "C"],
@@ -132,7 +189,7 @@ function restartFunc(){
     $("#D").prop("checked", false);
     $("#errorMessage").css("display", "none");
     $("#modalBodyNext").text("Next Question");
-};
+}
 
 //Validate if user got tick radio button
 //Alert text when finish, and accumulate score if correct
@@ -166,17 +223,20 @@ function hi(){
                 if(data == 5){
                     $("#OutsideAchieve1").attr("src", "static/images/unAchievement1.png");
                     if(challengeScore1 != 5){showAchievementAlert("static/images/unAchievement1.png", "POWDER POWER");}
-                    challengeScore1 = data;}
+                    }
+                challengeScore1 = data;
             }else if($("#challengeNumber").text() == 2){
                 if(data == 5){
                     $("#OutsideAchieve2").attr("src", "static/images/unAchievement2.png");
                     if(challengeScore2 != 5){showAchievementAlert("static/images/unAchievement2.png", "DESERVING DINER");}
-                    challengeScore2 = data;}
+                    }
+                challengeScore2 = data;
             }else{
                 if(data == 5){
                     $("#OutsideAchieve3").attr("src", "static/images/unAchievement3.png");
                     if(challengeScore3 != 5){showAchievementAlert("static/images/unAchievement3.png", "BEAK BECKONING");}
-                    challengeScore3 = data;}
+                    }
+                challengeScore3 = data;
             }});
         $('#challengeModal').modal("toggle");
     }

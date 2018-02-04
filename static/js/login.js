@@ -16,3 +16,20 @@ function CHECK2(){
         return true;
     }
 }
+
+//For Admin login
+function UserAdminLogin(disBut){
+    if(disBut.id == "userButton"){
+        $("#adminButton").attr("class", "changeLogin");
+        $("#userButton").attr("class", "changeLoginActivate");
+        $("#usernameInput").attr("name", "username");
+        $("#passwordInput").attr("name", "password").attr("placeholder", "Password");
+        $("#loginLogin").attr("name", "login");
+    }else if(disBut.id == "adminButton"){
+        $("#adminButton").attr("class", "changeLoginActivate");
+        $("#userButton").attr("class", "changeLogin");
+        $("#usernameInput").attr("name", "adminusername");
+        $("#passwordInput").attr("name", "adminpassword").attr("placeholder", "Admin Password");
+        $("#loginLogin").attr("name", "adminlogin");
+    }
+};
