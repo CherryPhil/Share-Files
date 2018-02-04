@@ -16,45 +16,59 @@
 	<body>
 	
 		{% include 'includes/_community_navbar.html' %}
-
 		<div><!--BODY-->
-			<div class="container noLink">
-				<br/><br/><br/><br/><br/><br/><br/><br/>
-				<h1 class="title">Community</h1>
-				<br/><br/><br/>
-				<h1 class="orange">Forums</h1>
-				<a href="/community/announcements">
-					<div class="col-md-8 tabs">
-						<p class="tabsp titlePad"> Announcements </p>
-					</div>
-				</a>
-				<br/><br/><br/><br/>
-				<a href="/community/general">
-				<div class="col-md-8 tabs">
-					<p class="tabsp titlePad"> General Discussion </p>
-				</div>
-				</a>
-				<br/><br/><br/><br/>
-				<a href="/community/recipes">
-				<div class="col-md-8 tabs">
-					<p class="tabsp titlePad"> Recipes </p>
-				</div>
-				</a>
-				<br/><br/><br/><br/>
-				<h1 class="orange">Support</h1>
-                <a href="/community/contactus">
-				<div class="col-md-8 tabs">
-					<p class="tabsp titlePad"> Contact Us </p>
-				</div>
-                </a>
-				<br/><br/><br/><br/>
-                <a href="/community/faq">
-				<div class="col-md-8 tabs">
-					<p class="tabsp titlePad"> FAQ </p>
-				</div>
-                </a>
-				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-			</div>
+            {% if admin != null %}
+                <div class="container noLink">
+                    <br/><br/><br/><br/><br/><br/><br/><br/>
+                    <h1 class="title">Community</h1>
+                    <br/><br/><br/>
+                    <h1 class="orange">Forums</h1>
+                    <a href="/community/announcements">
+                        <div class="col-md-8 tabs">
+                            <p class="tabsp titlePad"> Post Announcements </p>
+                        </div>
+                    </a>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </div>
+            {% else %}
+                <div class="container noLink">
+                    <br/><br/><br/><br/><br/><br/><br/><br/>
+                    <h1 class="title">Community</h1>
+                    <br/><br/><br/>
+                    <h1 class="orange">Forums</h1>
+                    <a href="/community/announcements">
+                        <div class="col-md-8 tabs">
+                            <p class="tabsp titlePad"> Announcements </p>
+                        </div>
+                    </a>
+                    <br/><br/><br/><br/>
+                    <a href="/community/general">
+                    <div class="col-md-8 tabs">
+                        <p class="tabsp titlePad"> General Discussion </p>
+                    </div>
+                    </a>
+                    <br/><br/><br/><br/>
+                    <a href="/community/recipes">
+                    <div class="col-md-8 tabs">
+                        <p class="tabsp titlePad"> Recipes </p>
+                    </div>
+                    </a>
+                    <br/><br/><br/><br/>
+                    <h1 class="orange">Support</h1>
+                    <a href="/community/contactus">
+                    <div class="col-md-8 tabs">
+                        <p class="tabsp titlePad"> Contact Us </p>
+                    </div>
+                    </a>
+                    <br/><br/><br/><br/>
+                    <a href="/community/faq">
+                    <div class="col-md-8 tabs">
+                        <p class="tabsp titlePad"> FAQ </p>
+                    </div>
+                    </a>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                </div>
+            {% endif %}
 		</div>
 		
 		<!--BOTTOM-->

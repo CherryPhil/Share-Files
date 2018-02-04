@@ -13,6 +13,18 @@
 		<link href="/static/css/forums.css" rel="stylesheet">
         <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
         <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
+        <script>
+            var i = "{{ i }}";
+            var userID = "{{ userID|safe }}";
+            function postComment(){
+                $.getJSON("/addComment2", {comment: $("#comment").val(), posterID: i, userID: userID}, function(hello){
+                    if(hello == false){
+                        alert("Please login as a user to post a comment.");
+                    }
+                });
+                location.reload();
+            }
+        </script>
 	</head>
 	<body>
 		{% include 'includes/_community_navbar.html' %}
@@ -25,31 +37,80 @@
 				<br/><br/>
 				<img src="/static/images/board.png" alt="board" width="128px" style="float: left;"/>
 				<br/>
-				<p class="head"> {{ titled }} </p>
+				<p class="head" id="titled"> {{ titled }} </p>
 				<hr/>
-				<h1>&nbsp </h1>
+				<br/><br/><br/>
 				<img src="{{ poster['displaypicture'] }}" alt="PROFILE" style="float: left; border: 1px solid white; width: 96px;height: 96px;background-color: {{ poster['displaypicturecolor'] }}" />
 				<p class="juicy">&nbsp {{ poster["firstname"]}} {{poster["lastname"]}}</p>
 				<p class="juicy"><b> &nbsp User </b></p>
-				<br/>
+				<br/><br/><br/><br/>
+					<p class="juicy newline" id="texted"> {{ texted }} </p>
 				<br/><br/><br/>
-					<p>
-					    {{ texted }}
-					</p>
-				<br/><br/><br/>
+                {% if userID == postID %}
+                    <button type="button" id="generalBtn" class="btn btn-default editBtn" data-toggle="modal" data-target="#editGeneral">Edit</button>
+                {% endif %}
+                <div class="modal fade" id="editGeneral" role="dialog">
+                    <div class="modal-dialog modal-lg" style="padding-top: 100px">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title black">Edit Post</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <div>
+                                        <label for="generalTitle" class="black">Title: </label>
+                                        <input type="text" class="form-control" id="generalTitle" />
+                                    </div>
+                                    <br/>
+                                    <div>
+                                        <label for="generalText" class="black">Text: </label>
+                                        <textarea class="form-control" id="generalText" rows="10"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updatePost">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 				<hr/>
 				<br/><br/><br/>
-				{{ render_field }}
+                {% for i in comments %}
+                <img src="{{ alluser[comments[i]["userID"]]["displaypicture"] }}" style="float:left; border: 1px solid white; width: 32px;height: 32px; background-color: {{ alluser[comments[i]["userID"]]["displaypicturecolor"] }};">
+                <br/><br/><br/><br/><br/>
+                <p class="juicy newline">{{ comments[i]["comment"] }}</p>
+                <p style="float: right"><i>commented by {{ alluser[comments[i]["userID"]]["firstname"]+" "+alluser[comments[i]["userID"]]["lastname"] }}</i></p>
+                    <br/>
+                    <hr/>
+                {% endfor %}
+				<label for="comment"></label><p style="font-size: 20px;">Comments</p>
+				<textarea class="form-control" rows="5" id="comment"></textarea>
 				<br/>
-				<input type="submit" class="btn btn-default"/>
+				<input type="submit" class="btn btn-default" onclick="postComment()"/>
 				<br/><br/><br/>
 				<hr/>
 				<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			</div>
 		</div>
-
 		<!--BOTTOM-->
         {% include 'includes/_footer.html' %}
+        <script>
+            var i = "{{ i }}";
+            $("#generalBtn").click(function(){
+                $("#generalTitle").val($("#titled").text());
+                $("#generalText").val($("#texted").text());
+            });
+
+                $("#updatePost").click(function () {
+                    var title = $("#generalTitle").val();
+                    var text = $("#generalText").val();
+                    $.getJSON("/generalUpdate", {title: title, text: text, poster: i}, function () {
+                        location.replace("http://127.0.0.1:5000/community/general");
+                    })
+                })
+        </script>
 
 	</body>
 </html>

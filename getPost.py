@@ -90,3 +90,20 @@ class recipeObj():
 
     def set_recipes(self, recipes):
         self.__recipes = recipes
+
+class announcementsObj():
+    def __init__(self, announcement, content):
+        self.__announcement = announcement
+        self.__content = content
+
+    def get_announcement(self):
+        return self.__announcement
+
+    def get_content(self):
+        return self.__content
+
+    def set_announcement(self, announcement):
+        self.__announcement = announcement
+
+    def set_content(self, content):
+        self.__content = content

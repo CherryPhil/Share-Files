@@ -1,22 +1,27 @@
-from wtforms import Form, StringField, SubmitField, SelectField, TextAreaField, RadioField, IntegerField, validators
+from wtforms import Form, StringField, SubmitField, SelectField, TextAreaField, IntegerField, validators
 
 class Post(Form):
-    title = StringField('Title', [validators.Length(min=1, max=50)])
-    text = TextAreaField('Text')
-    submit = SubmitField('Post')
+    title = StringField('Title',[validators.DataRequired()])
+    text = TextAreaField('Text', [validators.DataRequired()])
+    submit = SubmitField('Post', [validators.DataRequired()])
+
+class Announcement(Form):
+    announcement = StringField('Announcement', [validators.DataRequired()])
+    content = TextAreaField('Content', [validators.DataRequired()])
+    submit = SubmitField('Submit', [validators.DataRequired()])
 
 class Contact(Form):
-    email = StringField('Email Address:')
-    subject = StringField('Subject:')
-    message = TextAreaField('Your message:')
-    submit = SubmitField('Submit')
+    email = StringField('Email Address:', [validators.DataRequired()])
+    subject = StringField('Subject:', [validators.DataRequired()])
+    message = TextAreaField('Your message:', [validators.DataRequired()])
+    submit = SubmitField('Submit', [validators.DataRequired()])
 
 class User_recipe(Form):
-    name = StringField('Food Name', [validators.Length(min=4, max=20)])
-    type = RadioField('Type', choices=[('Healthy', 'Healthy'), ('Unhealthy', 'Unhealthy')], default='Healthy')
-    prep_time = IntegerField('Preparation Time (in minutes)')
-    cooking_time = IntegerField('Cooking Time (in minutes)')
-    calories = IntegerField('Calories')
-    ingredients = StringField('Ingredients')
-    recipes = TextAreaField('Recipes')
-    submit = SubmitField('Post')
+    name = StringField('Food Name', [validators.DataRequired()])
+    type = SelectField('Type', [validators.DataRequired()], choices=[('Healthy', 'Healthy'), ('Unhealthy', 'Unhealthy')])
+    prep_time = IntegerField('Preparation Time (in minutes)', [validators.DataRequired()])
+    cooking_time = IntegerField('Cooking Time (in minutes)', [validators.DataRequired()])
+    calories = IntegerField('Calories', [validators.DataRequired()])
+    ingredients = StringField('Ingredients', [validators.DataRequired()])
+    recipes = TextAreaField('Recipes', [validators.DataRequired()])
+    submit = SubmitField('Post', [validators.DataRequired()])

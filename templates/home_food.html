@@ -38,7 +38,7 @@
                     <li><a href="/community">Community</a></li>
                 </ul>
                 {% if user != null %}
-                    <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown" style="background-color: {{ user["displaypicturecolor"] }}">
+                    <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown">
                         <img id="displayPic" src={{ user["displaypicture"] }}>
                     </div>
                     <ul id="profileDropdown" class="dropdown-menu">
@@ -57,61 +57,7 @@
         <br>
         <br>
         <br>
-	    <div style="color: white; text-align: center; ">
-            <h1>Health</h1>
-            <img id="healthBug"  src="/static/images/w.jpg">
-        </div>
-        <div id="healthLizard">
-            <hr>
-            <h3 id="title">{{ articles["header"] }}</h3>
-            {% if admin != null %}
-            <button id="healthHippo" type="button" class="btn" data-toggle="modal" data-target="#myModal">Edit Article</button>
-            {% endif %}
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit Article</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <div>
-                                    <label for="article_header">Header: </label>
-                                    <input type="text" class="form-control" id="article_header" />
-                                </div>
-                                <div>
-                                    <label for="article_content">Content: </label>
-                                    <textarea class="form-control" id="article_content" rows="10"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="updateButton">Update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <hr>
-            <p id="content">{{ articles["content"] }}</p>
-        <br/><br/>
-        </div>
 
 		{% include 'includes/_footer.html' %}
-        <script>
-            $("#healthHippo").click(function(){
-                $("#article_header").val($("#title").text());
-                $("#article_content").val($("#content").text());
-            });
-
-            $("#updateButton").click(function(){
-                var header = $("#article_header").val();
-                var content = $("#article_content").val();
-                $.getJSON("/articleUpdate",{header: header, content: content, direct: "health"}, function(){
-                    location.reload();
-                })
-            })
-        </script>
 	</body>
 </html>

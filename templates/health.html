@@ -13,6 +13,7 @@
         <link href="{{ url_for("static", filename="css/footer.css") }}" rel="stylesheet">
         <link href="{{ url_for("static", filename="css/navbar.css") }}" rel="stylesheet">
         <script type="text/javascript" src="static/js/graph.js"></script>
+        <script type="text/javascirpt" src="static/js/alogrith.js"></script>
 
 	</head>
 	<body>
@@ -38,14 +39,25 @@
 					<li><a href="/fun">Fun</a></li>
 					<li><a href="/community">Community</a></li>
 				</ul>
-				<a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+				{% if user != null%}
+                    <div id="usernameBox" class="dropdown-toggle" data-toggle="dropdown" style="background-color:{{ user["displaypicturecolor"] }}">
+                        <img id="displayPic"src="{{ user['displaypicture'] }}">
+                    </div>
+                    <ul id="profileDropdown" class="dropdown-menu">
+                        <li class="disabled"><a id="dropdownUsernameLink">Hi, <span>{{ user["firstname"] }}</span></a></li>
+                        <li class="divider"></li>
+                        <li><a class="dropdownLink" href="/profile"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profile</a></li>
+                        <li><a class="dropdownLink" href="/login"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Sign out</a></li>
+                    </ul>
+                {% else %}
+                    <a type="button" class="btn btn-default" id="loginButton" href="/login">Sign In</a>
+                {% endif %}
 			</div>
 		</nav>
 	
 	
 		<div class="parent-div"><!--BODY-->
-			<img src ="static/images/running1.jfif" style="width:100%;">
-			&nbsp;
+            <br><br><br><br><br>
 			<div class="bmi">
 
 				<script type="text/javascript" src="static/js/bmi.js"></script>
@@ -54,73 +66,130 @@
 				<p>Enter your height (cm): <input type="text" id="height" multiple/></p>
 				<p>Enter your weight( kg): <input type="text" id="weight" multiple/></p>
 				<input type="submit" value="Calculate" onclick="computeBMI();">
-				<h1>Body Mass Index: <span id="output">?</span></h1>
-				<h2><span id="comment"></span></h2>
+				<h1 style="text-align: center">Body Mass Index: </h1>
+                <h1 style="text-align:center;"><span id="output">?</span></h1>
+				<h2 style="text-align:center;"><span id="comment"></span></h2>
 
 			</div>
             <br><br>
 
-            <div id="chartContainer" style="width:100%; height:280px"></div>
-            <div style = "text-align:center;">
-                Enter Updated BMI: <input id="newdp" type="number">
-                <button id="addDataPoint">Update</button>
+            <div id="chartContainer" style="width:80%; height:280px; opacity: 0.9; margin: 0 auto"></div>
+            <div style = "text-align:center;"><br>
+                <span style="opacity: 1; font-size: 20px;">
+                    <strong>Enter Updated BMI: </strong><input id="newdp" type="number" required="required">
+                    <button id="addDataPoint">Update</button>
+                </span>
             </div>
             <br><br>
             <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-            <div class="container" style="width: 100%; overflow: hidden;">
-                <div class="child_div_1" style="width: 500px; float: left;">
-                    <h1>Recommended Diets</h1>
-                    <table id="myTable">
+            <div class="reco">
+                <div class="diet">
+                    <table id="table1">
                         <thead>
-                        <tr class="header">
-                            <th style="width:10%;">Photo</th>
-                            <th style="width:30%;">Food</th>
-                            <th style="width:20%;"><img id="Cook" src="static/images/Cook.png">Prep.</th>
-                            <th style="width:20%;"><img id="Cook1" src="static/images/Cook1.png">Cook</th>
-                            <th style="width:20%;">Calories(/100g)</th>
-                        </tr>
-                        </thead>
-                        <tbody id="myTable1">
-                        {% for i in name %}
-                            <tr onclick="location.href='{{i['steps']}}';">
-                                <td><img id="photo" src="static/images/food/{{i['photo']}}"></td>
-                                <td>{{i['name']}}</td>
-                                <td>{{i['prep']}}</td>
-                                <td>{{i['cook']}}</td>
-                                <td style="text-align: center">{{i['cal']}}</td>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Food</th>
+                                <th>Calories (per 100g)</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
+                        </thead>
+                        <tbody id="Ddata"></tbody>
                     </table>
                 </div>
-                <div class="child_div_2" style="margin-left: 810px;">
-                    <h1>Recommended Workouts</h1>
-                    <table id="myTable">
+                <br><br>
+                <div class="workout">
+                    <table id="table2">
                         <thead>
-                        <tr class="header">
-                            <th style="width:10%;">Photo</th>
-                            <th style="width:30%;">Workout</th>
-                            <th style="width:30%;">Calories</th>
-                            <th style="width:30%;">Duration</th>
-                        </tr>
-                        </thead>
-                        <tbody id="myTable1">
-                        {% for i in name1 %}
-                            <tr onclick="location.href='{{i['steps']}}';">
-                                <td><img id="photo" src="{{i['photo']}}"></td>
-                                <td>{{i['name']}}</td>
-                                <td>{{i['kcal-burn']}}</td>
-                                <td>{{i['duration']}}</td>
+                            <tr>
+                                <th>Workout</th>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Calories Burned</th>
                             </tr>
-                        {% endfor %}
-                        </tbody>
+                        </thead>
+                        <tbody id="Wdata"></tbody>
                     </table>
                 </div>
+                <br><br>
             </div>
-        <br><br>
-		</div>
+        </div>
 		
 		{% include 'includes/_footer.html' %}
+    <script>
+        user = {{ user|safe }};
+        namer = {{ namer|safe }};
+        name1 ={{ name1|safe }};
 
+        function hello(){
+            if(user["BMIgraph"] == null){var theList = []}
+            else{var theList = JSON.parse(user["BMIgraph"])};
+            followDatabase(theList);
+        }
+
+
+        for (var item in namer) {
+            var bmi_range = (namer[item]["forBMI"]).split(",");
+            var user_bmi = user["BMI"].toString();
+
+            if (bmi_range.includes(user_bmi) === true) {
+                // recommended diet
+                var tr1 = document.createElement('tr');
+                console.log(namer[item]['steps']);
+                tr1.setAttribute('onclick','location.href=' + "namer[item]['steps']");
+                var tdd1 = document.createElement('td');
+                var tdd2 = document.createElement('td');
+                var tdd3 = document.createElement('td');
+                var img = document.createElement('img');
+                img.setAttribute("src", "/static/images/food/" + namer[item]['photo']);
+                img.style.width = '302px';
+                img.style.height = '167px';
+                var nd2 = document.createTextNode(namer[item]["name"]);
+                var nd3 = document.createTextNode(namer[item]["cal"]);
+                tdd1.appendChild(img);
+                tdd2.appendChild(nd2);
+                tdd3.appendChild(nd3);
+                tr1.appendChild(tdd1);
+                tr1.appendChild(tdd2);
+                tr1.appendChild(tdd3);
+                document.getElementById('Ddata').appendChild(tr1);
+            }
+        }
+
+        for (var i in name1){
+            //recommended workout
+            var bmi_range1 = (name1[i]["forBMI"]).split(",");
+            var user_bmi1 = user["BMI"].toString();
+
+            if (bmi_range1.includes(user_bmi1) === true){
+                // recommended workout
+                var tr2 = document.createElement('tr');
+                var tdw1 = document.createElement('td');
+                var tdw2 = document.createElement('td');
+                var tdw3 = document.createElement('td');
+                var tdw4 = document.createElement('td');
+                var img1 = document.createElement('img');
+                img1.setAttribute("src", name1[i]['photo']);
+                img1.style.width = '302px';
+                img1.style.height = '167px';
+                var nw2 = document.createTextNode(name1[i]["name"]);
+                var nw3 = document.createTextNode(name1[i]["duration"]);
+                var nw4 = document.createTextNode(name1[i]["kcal-burn"]);
+                tdw1.appendChild(img1);
+                tdw2.appendChild(nw2);
+                tdw3.appendChild(nw3);
+                tdw4.appendChild(nw4);
+                tr2.appendChild(tdw1);
+                tr2.appendChild(tdw2);
+                tr2.appendChild(tdw3);
+                tr2.appendChild(tdw4);
+                document.getElementById('Wdata').appendChild(tr2);
+            }
+        }
+        if(document.getElementById("Ddata").innerHTML === ""){
+            $("#table1").css("display", "none");
+        }
+        if(document.getElementById("Wdata").innerHTML === ""){
+            $("#table2").css("display", "none");
+        }
+    </script>
 	</body>
 </html>
